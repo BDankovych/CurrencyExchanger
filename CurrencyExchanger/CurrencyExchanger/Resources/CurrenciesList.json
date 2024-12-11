@@ -1,0 +1,46 @@
+{
+   "currencies":[
+      {
+         "code":"UAH",
+         "symbol":"₴",
+         "name":"Ukrainian hryvnia",
+         "flag":"Ukraine"
+      },
+      {
+         "code":"CAD",
+         "symbol":"$",
+         "name":"Canada dollar",
+         "flag":"Canada"
+      },
+      {
+         "code":"BRL",
+         "symbol":"R$",
+         "name":"Brazilian real",
+         "flag":"Brazil"
+      },
+      {
+         "code":"CNY",
+         "symbol":"¥",
+         "name":"Renminbi",
+         "flag":"China"
+      },
+      {
+         "code":"CZK",
+         "symbol":"Kč",
+         "name":"Czech koruna",
+         "flag":"Czech Republic"
+      },
+      {
+         "code":"EUR",
+         "symbol":"€",
+         "name":"Euro",
+         "flag":"European Union"
+      },
+      {
+         "code":"USD",
+         "symbol":"$",
+         "name":"US Dollar",
+         "flag":"USA"
+      }
+   ]
+}

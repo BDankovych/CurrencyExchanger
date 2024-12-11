@@ -25,7 +25,6 @@ class CurrenciesListView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
-        currencies = CurrencyStorage.shared.getCurrencies()
         setupSearchBar()
         setupSearchPublisher()
         setupTableView()

@@ -9,8 +9,9 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let from = Currency(code: "USD", symbol: "$", name: "US Dollar", flag: "Germany")
-        let to = Currency(code: "EUR", symbol: "€", name: "EURO", flag: "Germany")
+        
+        let from = CurrencyStorage.shared.defaultFrom
+        let to = CurrencyStorage.shared.defaultTo
         let input = ExchangeCurrencyCoordinator.CoordinatorInput(amount: 1.00, from: from, to: to)
         
         let exhangeCoordinator = ExchangeCurrencyCoordinator(input: input, presenterVC: self)
