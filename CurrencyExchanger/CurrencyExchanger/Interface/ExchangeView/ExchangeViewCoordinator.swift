@@ -18,7 +18,13 @@ class ExchangeCurrencyCoordinator: ExchangeViewCoordinatorProtocol {
     private var childVC: UIViewController?
     
     func start() {
-        let viewModel = ExchangeViewModel(amount: input.amount, from: input.from, to: input.to, coordinator: self)
+        let viewModel = ExchangeViewModel(
+            amount: input.amount,
+            from: input.from,
+            to: input.to,
+            exchanger: ExchangeCurrencyNetworkManager(),
+            coordinator: self
+        )
         let vc = ExchangeView(viewModel: viewModel)
         vc.modalPresentationStyle = .fullScreen
         presenterVC.present(vc, animated: false)

@@ -2,9 +2,9 @@ import UIKit
 
 class LoadingView: UIView {
     private var stackView: UIStackView!
-    private let dotsCount: Int = 4
+    private let dotsCount: Int = 5
     
-    private let dotsSize: CGFloat = 20
+    private let dotsSize: CGFloat = 15
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,16 +47,16 @@ class LoadingView: UIView {
             let view = UIView()
             view.clipsToBounds = true
             view.backgroundColor = .darkGray
-            view.layer.cornerRadius = 10
-            view.widthAnchor.constraint(equalToConstant: 20).isActive = true
-            view.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            view.layer.cornerRadius = dotsSize / 2
+            view.widthAnchor.constraint(equalToConstant: dotsSize).isActive = true
+            view.heightAnchor.constraint(equalToConstant: dotsSize).isActive = true
             stackView.addArrangedSubview(view)
         }
     }
     
     
     func startAnimation() {
-        let duration: Double = 1
+        let duration: Double = 0.5
         let delay = duration / Double(dotsCount - 1)
         
         for (index, view) in stackView.arrangedSubviews.enumerated() {

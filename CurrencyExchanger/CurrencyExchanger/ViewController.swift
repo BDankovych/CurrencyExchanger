@@ -4,12 +4,14 @@ import Combine
 class ViewController: UIViewController {
     
     private var bag = Set<AnyCancellable>()
+    let manager = ExchangeCurrencyNetworkManager()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let from = Currency(country: "US", code: "USD", symbol: "$", name: "US Dollar", flag: "Germany")
-        let to = Currency(country: "Grait Britain", code: "CBP", symbol: "&", name: "British Pound", flag: "Germany")
+        
+        let from = CurrencyStorage.shared.defaultFrom
+        let to = CurrencyStorage.shared.defaultTo
         let input = ExchangeCurrencyCoordinator.CoordinatorInput(amount: 1.00, from: from, to: to)
         
         let exhangeCoordinator = ExchangeCurrencyCoordinator(input: input, presenterVC: self)

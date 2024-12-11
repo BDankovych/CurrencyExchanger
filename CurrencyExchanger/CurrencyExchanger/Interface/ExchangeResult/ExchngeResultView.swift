@@ -67,26 +67,28 @@ class ExchngeResultView: UIView {
     }
     
     private func configure(model: ExchangeResultState) {
-        switch model {
-        case .loading:
-            resultLabel.isHidden = true
-            loadingView.isHidden = false
-            loadingView.startAnimation()
-        case .none:
-            resultLabel.isHidden = true
-            loadingView.isHidden = true
-            loadingView.stopAnimation()
-        case .resut(let exchangeResult):
-            resultLabel.isHidden = false
-            loadingView.isHidden = true
-            loadingView.stopAnimation()
-            configureResultLabel(result: exchangeResult)
+        DispatchQueue.main.async { [self] in
+            switch model {
+            case .loading:
+                resultLabel.isHidden = true
+                loadingView.isHidden = false
+                loadingView.startAnimation()
+            case .none:
+                resultLabel.isHidden = true
+                loadingView.isHidden = true
+                loadingView.stopAnimation()
+            case .result(let exchangeResult):
+                resultLabel.isHidden = false
+                loadingView.isHidden = true
+                loadingView.stopAnimation()
+                configureResultLabel(result: exchangeResult)
+            }
         }
     }
     
     private func configureResultLabel(result: ExchangeResult) {
         let str1 = NSAttributedString(
-            string: "\(result.fromAmount) ",
+            string: String(format: "%0.2f ", result.fromAmount),
             attributes: [
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold),
                 NSAttributedString.Key.foregroundColor: UIColor.darkGray
@@ -107,7 +109,7 @@ class ExchngeResultView: UIView {
         ])
         
         let str4 = NSAttributedString(
-            string: "\(result.toAmount) ",
+            string: String(format: "%0.2f ", result.toAmount),
             attributes: [
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold),
                 NSAttributedString.Key.foregroundColor: UIColor.darkGray
