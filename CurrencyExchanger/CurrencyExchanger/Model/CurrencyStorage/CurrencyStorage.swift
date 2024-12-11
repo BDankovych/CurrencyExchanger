@@ -17,11 +17,9 @@ class CurrencyStorage: CurrenciesListDataProvider {
                 
                 return result.currencies
             } catch {
-                print("Error")
                 return []
             }
         } else {
-            print("Error")
             return []
         }
     }()

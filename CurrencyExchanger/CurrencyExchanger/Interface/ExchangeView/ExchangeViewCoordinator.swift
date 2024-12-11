@@ -49,7 +49,6 @@ class ExchangeCurrencyCoordinator: ExchangeViewCoordinatorProtocol {
         
         let coordinator = CurrenciesListCoordinator(input: input, presenterVC: childVC)
         coordinator.condinatorDidFinished = {
-            print($0)
             switch $0 {
             case .success(let output):
                 changeHanler(output.selectedCurrency)
