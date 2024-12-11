@@ -7,23 +7,36 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let inputViewModel = CurrencyInputFieldViewModel(symbol: "$")
+//        let inputViewModel = CurrencyInputFieldViewModel(symbol: "$")
+//        
+//        let input = CurrencyInputFieldView(viewModel: inputViewModel)
+//        
+//        inputViewModel.amountChangedPublisher
+//        .sink { amount in
+//            print(amount)
+//        }.store(in: &bag)
+//        
+//        input.translatesAutoresizingMaskIntoConstraints = false
         
-        let input = CurrencyInputFieldView(viewModel: inputViewModel)
+        let animation = LoadingView()
+        animation.translatesAutoresizingMaskIntoConstraints = false
         
-        inputViewModel.amountChangedPublisher
-        .sink { amount in
-            print(amount)
-        }.store(in: &bag)
-        
-        input.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(input)
+        view.addSubview(animation)
         
         NSLayoutConstraint.activate([
-            input.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            input.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-            input.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            animation.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            animation.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            animation.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            animation.heightAnchor.constraint(equalToConstant: 80)
         ])
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            animation.startAnimation()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+//            animation.stopAnimation()
+        }
     }
 
 }
