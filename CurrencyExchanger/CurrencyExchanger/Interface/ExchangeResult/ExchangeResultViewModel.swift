@@ -9,17 +9,17 @@ struct ExchangeResult {
 
 enum ExchangeResultState {
     case loading
-    case error
+    case none
     case resut(ExchangeResult)
 }
 
 protocol ExchngeResultViewModelProtocol {
-    var symbolPublisher: Published<ExchangeResultState>.Publisher { get }
+    var resultPublisher: Published<ExchangeResultState>.Publisher { get }
     func update(result: ExchangeResultState)
 }
 
 class ExchngeResultViewModel: ExchngeResultViewModelProtocol {
-    var symbolPublisher: Published<ExchangeResultState>.Publisher { $result }
+    var resultPublisher: Published<ExchangeResultState>.Publisher { $result }
     @Published var result: ExchangeResultState
     
     init(result: ExchangeResultState) {

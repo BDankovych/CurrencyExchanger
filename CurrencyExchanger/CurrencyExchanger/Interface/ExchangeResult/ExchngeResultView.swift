@@ -40,7 +40,7 @@ class ExchngeResultView: UIView {
         resultLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
         resultLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
         resultLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15).isActive = true
-        resultLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
+        resultLabel.bottomAnchor.constraint(greaterThanOrEqualTo: self.bottomAnchor, constant: -5).isActive = true
         
         self.resultLabel = resultLabel
     }
@@ -61,7 +61,7 @@ class ExchngeResultView: UIView {
     }
     
     private func bind() {
-        viewModel.symbolPublisher.sink { [weak self] result in
+        viewModel.resultPublisher.sink { [weak self] result in
             self?.configure(model: result)
         }.store(in: &bag)
     }
@@ -72,7 +72,7 @@ class ExchngeResultView: UIView {
             resultLabel.isHidden = true
             loadingView.isHidden = false
             loadingView.startAnimation()
-        case .error:
+        case .none:
             resultLabel.isHidden = true
             loadingView.isHidden = true
             loadingView.stopAnimation()
@@ -116,7 +116,7 @@ class ExchngeResultView: UIView {
         let str5 = NSAttributedString(
             string: result.to,
             attributes: [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .bold),
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold),
                 NSAttributedString.Key.foregroundColor: UIColor.lightGray
         ])
         
