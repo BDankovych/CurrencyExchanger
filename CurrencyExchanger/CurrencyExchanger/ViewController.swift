@@ -8,19 +8,13 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let input = CurrenciesListCoordinator.Input(dataProvider: CurrencyStorage.shared)
+        let from = Currency(country: "US", code: "USD", symbol: "$", name: "US Dollar", flag: "Germany")
+        let to = Currency(country: "Grait Britain", code: "CBP", symbol: "&", name: "British Pound", flag: "Germany")
+        let input = ExchangeCurrencyCoordinator.CoordinatorInput(amount: 1.00, from: from, to: to)
         
-        let coordinator = CurrenciesListCoordinator(input: input, presenterVC: self)
-        coordinator.condinatorDidFinished = {
-            print($0)
-            switch $0 {
-            case .success(let output):
-                print(output.selectedCurrency)
-            case .failure(let err):
-                print(err.localizedDescription)
-            }
-        }
-        coordinator.start()
+        let exhangeCoordinator = ExchangeCurrencyCoordinator(input: input, presenterVC: self)
+        
+        exhangeCoordinator.start()
     }
 
 }
