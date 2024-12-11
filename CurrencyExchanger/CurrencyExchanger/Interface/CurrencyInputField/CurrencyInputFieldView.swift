@@ -8,7 +8,7 @@ class CurrencyInputFieldView: UIView {
     
     private var isFirstTimeEditing = true
     
-    private var viewModel: (any CurrencyInputFieldVMProtocol)!
+    private var viewModel: CurrencyInputFieldViewModelProtocol!
     private var bag: Set<AnyCancellable> = []
     
     private lazy var formatter: NumberFormatter = {
@@ -20,7 +20,7 @@ class CurrencyInputFieldView: UIView {
         return formatter
     }()
     
-    init(viewModel: any CurrencyInputFieldVMProtocol) {
+    init(viewModel: CurrencyInputFieldViewModelProtocol) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         self.setup()
@@ -32,7 +32,7 @@ class CurrencyInputFieldView: UIView {
     }
     
     required internal init?(coder: NSCoder) {
-        fatalError("Use please init(viewModel: any CurrencyInputFieldVMProtocol)")
+        fatalError("Use please init(viewModel: CurrencyInputFieldVMProtocol)")
     }
     
     private func setup() {
