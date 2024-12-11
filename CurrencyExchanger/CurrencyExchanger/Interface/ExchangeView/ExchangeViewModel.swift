@@ -1,4 +1,5 @@
 import Combine
+import Foundation
 
 protocol ExchangeViewModelProtocol {
     
@@ -23,20 +24,24 @@ class ExchangeViewModel: ExchangeViewModelProtocol {
     private var resultViewModel: ExchngeResultViewModel
     
     private var coordinator: any ExchangeViewCoordinatorProtocol
+    private var exchanger: CurrenciesExhangerProtocol
     
     private var bag = Set<AnyCancellable>()
     
-    init(amount: Double, from: Currency, to: Currency, coordinator: any ExchangeViewCoordinatorProtocol) {
+    init(amount: Double, from: Currency, to: Currency, exchanger: CurrenciesExhangerProtocol, coordinator: any ExchangeViewCoordinatorProtocol) {
         self.amount = amount
         self.from = from
         self.to = to
         self.coordinator = coordinator
+        self.exchanger = exchanger
         
         self.inputViewModel = CurrencyInputFieldViewModel(symbol: from.symbol)
         self.exchangeSelectorViewModel = CurrencyExchangeSelectorViewModel(fromCurrency: from, toCurrency: to)
         self.resultViewModel = ExchngeResultViewModel(result: .none)
         
         bind()
+        
+        updateExchange()
     }
     
     func getImputViewModel() -> CurrencyInputFieldViewModelProtocol {
@@ -72,10 +77,23 @@ class ExchangeViewModel: ExchangeViewModelProtocol {
     
     private func updateExchange() {
         print("Updating..")
+        resultViewModel.update(result: .loading)
         
-        let res = ExchangeResult(from: from.name, to: to.name, fromAmount: amount, toAmount: 100)
-        
-        resultViewModel.update(result: .resut(res))
+        exchanger
+            .exhangeMoney(model: .init(from: from.code, to: to.code, amount: amount))
+            .receive(on: RunLoop.main)
+            .sink { [weak self] completion in
+                print("Completion", completion)
+                if case .failure(let error) = completion {
+                    self?.resultViewModel.update(result: .none)
+                    self?.coordinator.show(error: error)
+                }
+            } receiveValue: { [weak self] result in
+                print("Result", result)
+                guard let self else { return }
+                let result = ExchangeResult(from: self.from.name, to: self.to.name, fromAmount: self.amount, toAmount: result.amount)
+                self.resultViewModel.update(result: .result(result))
+            }.store(in: &bag)
     }
     
     private func updateSymbol() {

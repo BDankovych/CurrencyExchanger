@@ -10,7 +10,7 @@ struct ExchangeResult {
 enum ExchangeResultState {
     case loading
     case none
-    case resut(ExchangeResult)
+    case result(ExchangeResult)
 }
 
 protocol ExchngeResultViewModelProtocol {
