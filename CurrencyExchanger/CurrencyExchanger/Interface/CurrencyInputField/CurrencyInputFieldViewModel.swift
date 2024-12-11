@@ -1,11 +1,11 @@
 import Combine
 
-protocol CurrencyInputFieldVMProtocol {
+protocol CurrencyInputFieldViewModelProtocol {
     var amountChangedPublisher: PassthroughSubject<Double, Never> { get }
     var symbolPublisher: Published<String>.Publisher { get }
 }
 
-class CurrencyInputFieldViewModel: CurrencyInputFieldVMProtocol {
+class CurrencyInputFieldViewModel: CurrencyInputFieldViewModelProtocol {
     var symbolPublisher: Published<String>.Publisher { $symbol }
     @Published var symbol: String
     private(set) var amountChangedPublisher: PassthroughSubject<Double, Never>
