@@ -24,12 +24,10 @@ class ExchangeCurrencyNetworkManager: CurrenciesExhangerProtocol {
                 return element.data
             }
             .mapError { error in
-                print(error.localizedDescription)
                 return DefaultError.somethingWrong
             }
             .decode(type: NetworkExchangeResponse.self, decoder: JSONDecoder())
             .map {
-                print("mapping", $0)
                 return ExchangeCurrencyResponseModel(amount: $0.amount)
             }
             .eraseToAnyPublisher()

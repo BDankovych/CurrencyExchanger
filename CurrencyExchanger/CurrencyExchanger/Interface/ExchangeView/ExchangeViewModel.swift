@@ -76,20 +76,17 @@ class ExchangeViewModel: ExchangeViewModelProtocol {
     }
     
     private func updateExchange() {
-        print("Updating..")
         resultViewModel.update(result: .loading)
         
         exchanger
             .exhangeMoney(model: .init(from: from.code, to: to.code, amount: amount))
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
-                print("Completion", completion)
                 if case .failure(let error) = completion {
                     self?.resultViewModel.update(result: .none)
                     self?.coordinator.show(error: error)
                 }
             } receiveValue: { [weak self] result in
-                print("Result", result)
                 guard let self else { return }
                 let result = ExchangeResult(from: self.from.name, to: self.to.name, fromAmount: self.amount, toAmount: result.amount)
                 self.resultViewModel.update(result: .result(result))
